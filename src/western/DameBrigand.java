@@ -1,71 +1,68 @@
 package western;
 
-public class DameBrigand extends DameStresse {
+public class DameBrigand extends DameStresse implements HorsLaLoi {
 
-    private int nbDamesEnlevees;  
-    private int recompense;   
+    private int nbDamesEnlevees;
+    private int recompense;
     private String look;
     private boolean estEnPrison;
 
     // Constructor
-    public DameBrigand(String nom, String boissonFavorite, String etat, String coleurRobe,
+    public DameBrigand(String nom, String boissonFavorite, String etat, String couleurRobe,
                        int nbDamesEnlevees, int recompense, String look, boolean estEnPrison) {
-        super(nom, boissonFavorite, etat, coleurRobe);
+        super(nom, boissonFavorite, etat, couleurRobe);
         this.nbDamesEnlevees = nbDamesEnlevees;
         this.recompense = recompense;
         this.look = look;
         this.estEnPrison = estEnPrison;
     }
+    
+    public void echapper() {
+    if (estEnPrison) {
+        estEnPrison = false;
+        System.out.println("DameBrigand " + super.quelEstTonNom() + " has escaped from prison!");
+    } else {
+        System.out.println("DameBrigand " + super.quelEstTonNom() + " is already free.");
+    }
+}
 
-    // Getter for bounty
+    // Implement HorsLaLoi methods
+    @Override
+    public void seFaireEmprisonner(CowBoy cowboy) {
+        estEnPrison = true;
+        System.out.println("DameBrigand " + super.quelEstTonNom() 
+                           + " has been imprisoned by " + cowboy.quelEstTonNom() + "!");
+    }
+
+    @Override
+    public void kidnapperDame(DameStresse dame) {
+        if (!estEnPrison) {
+            nbDamesEnlevees++;
+            System.out.println("DameBrigand " + super.quelEstTonNom() 
+                               + " kidnaps lady " + dame.quelEstTonNom() + "!");
+            dame.seFaireEnlever(new Brigand("Unknown accomplice", "Rum", 0, 0, "masked", false));
+        } else {
+            System.out.println("DameBrigand " + super.quelEstTonNom() + " cannot kidnap while in prison!");
+        }
+    }
+
+    @Override
     public int getRecompense() {
         return recompense;
     }
 
-    // Getter for look
-    public String getLook() {
-        return look;
+    @Override
+    public String quelEstTonNom() {
+        return super.quelEstTonNom();
     }
 
-    // Getter for prison state
-    public boolean isEnPrison() {
-        return estEnPrison;
-    }
-
-    // Kidnap another lady
-    public void kidnapperDame(DameStresse dame) {
-        if (!estEnPrison) {
-            nbDamesEnlevees++;
-            System.out.println("💋 Dame Brigand " + nom + " kidnaps lady " 
-                               + dame.quelEstTonNom() + " with charm and cunning!");
-        } else {
-            System.out.println("Dame Brigand " + nom + " can’t kidnap anyone while in jail!");
-        }
-    }
-
-    // Get imprisoned
-    public void seFaireEmprisonner(Sherif sheriff) {
-        estEnPrison = true;
-        System.out.println("🚔 Dame Brigand " + nom + " has been captured by Sheriff " 
-                           + sheriff.quelEstTonNom() + "! The town celebrates!");
-    }
-
-    // Escape from prison
-    public void echapper() {
-        if (estEnPrison) {
-            estEnPrison = false;
-            System.out.println("🕶️ Dame Brigand " + nom + " escapes from prison using her wit and charm!");
-        } else {
-            System.out.println("Dame Brigand " + nom + " is already free and plotting her next move!");
-        }
-    }
-
-    // Override introduction
     @Override
     public void sePresenter() {
-        String status = estEnPrison ? "currently in prison 🔒" : "on the loose 💃";
-        System.out.println("I’m Dame Brigand " + nom + " (" + look + "), with a bounty of $" 
-                           + recompense + ". I've kidnapped " + nbDamesEnlevees 
-                           + " lady(ies) and I’m " + status + ".");
+        String status = estEnPrison ? "in prison" : "free";
+        System.out.println("I’m DameBrigand " + super.quelEstTonNom() + " (" + look + "), bounty $" 
+                           + recompense + ", kidnapped " + nbDamesEnlevees + " ladies, currently " + status + ".");
     }
+
+    // Optional getters/setters if needed
+    public int getNbDamesEnlevees() { return nbDamesEnlevees;}
 }
