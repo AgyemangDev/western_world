@@ -14,30 +14,43 @@ public class CowBoy extends Humain {
     private String adjectif;
     
     public CowBoy(String nom, String boissonFavorite, int popularite, String adjectif){
-        super(nom, boissonFavorite); //humain constructor
+        super(nom, boissonFavorite); // humain constructor
         this.adjectif = adjectif;
         this.popularite = popularite;
-    };
+    }
     
-    //function to return string of cowboy shooting brigand
+    // Shoot at a Brigand
     public void tirer(Brigand brigand){
         System.out.println(adjectif + " cowboy " + nom + " shoots at " + brigand.quelEstTonNom());
     }
     
-    //getters to get Adjectif
-    public String getAdjectif() {
-       return adjectif;
+    // Cowboy drinks his favorite drink
+    public void boire(){
+        System.out.println(nom + " drinks " + boissonFavorite + " to stay refreshed!");
     }
-      
-    //function to print Cowboy saving Lady
+    
+    // Cowboy shoots in the air to show off
+    public void tirerEnLair(){
+        System.out.println(adjectif + " cowboy " + nom + " shoots in the air to show off!");
+    }
+    
+    // Save a lady
     public void libererDame(DameStresse dame){
-        System.out.println("Cowboy " + nom + " resuces" + dame.quelEstTonNom() + "!");
+        System.out.println("Cowboy " + nom + " rescues " + dame.quelEstTonNom() + "!");
+    }
+    
+    // Getter for adjectif
+    public String getAdjectif() {
+        return adjectif;
+    }
+    
+    // Getter for popularite
+    public int getPopularite() {
+        return popularite;
     }
     
     @Override
     public void sePresenter(){
         System.out.println("I’m " + adjectif + " cowboy " + nom + ", and I’m known for my popularity of " + popularite + "!");
-    }
-            
+    }       
 }
-
