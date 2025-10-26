@@ -1,0 +1,94 @@
+package western;
+
+public interface Soigneur {
+    void diagnostiquer(Humain patient);
+    void soigner(Humain patient);
+    int getPeopleHealed();
+}
+
+
+package western;
+
+public class Docteur extends Humain implements Soigneur {
+
+    private String specialite;
+    private int peopleHealed;
+
+    public Docteur(String nom, String boissonFavorite, String specialite) {
+        super(nom, boissonFavorite);
+        this.specialite = specialite;
+        this.peopleHealed = 0;
+    }
+
+    @Override
+    public void diagnostiquer(Humain patient) {
+        System.out.println("Dr. " + super.quelEstTonNom() + " diagnoses " + patient.quelEstTonNom() + "...");
+    }
+
+    @Override
+    public void soigner(Humain patient) {
+        System.out.println("Dr. " + super.quelEstTonNom() + " heals " + patient.quelEstTonNom() + "!");
+        peopleHealed++;
+    }
+
+    public void soignerBlessure(Humain patient) {
+        System.out.println("Dr. " + super.quelEstTonNom() + " treats the wound of " + patient.quelEstTonNom() + "!");
+        peopleHealed++;
+    }
+
+    @Override
+    public int getPeopleHealed() {
+        return peopleHealed;
+    }
+
+    @Override
+    public void sePresenter() {
+        System.out.println("Hello, I am Dr. " + super.quelEstTonNom() + ", specialized in " + specialite + ".");
+    }
+}
+
+
+
+
+
+package western;
+
+public class Indien extends Humain implements Soigneur {
+
+    private int nbPlumes;
+    private String totem;
+    private int peopleHealed;
+
+    public Indien(String nom, String boissonFavorite, int nbPlumes, String totem) {
+        super(nom, boissonFavorite);
+        this.nbPlumes = nbPlumes;
+        this.totem = totem;
+        this.peopleHealed = 0;
+    }
+
+    @Override
+    public void diagnostiquer(Humain patient) {
+        System.out.println("Indien " + super.quelEstTonNom() + " senses the condition of " + patient.quelEstTonNom() + " using ancient knowledge...");
+    }
+
+    @Override
+    public void soigner(Humain patient) {
+        System.out.println("Indien " + super.quelEstTonNom() + " heals " + patient.quelEstTonNom() + " using traditional methods!");
+        peopleHealed++;
+    }
+
+    @Override
+    public int getPeopleHealed() {
+        return peopleHealed;
+    }
+
+    @Override
+    public void parle(String message) {
+        System.out.println("[" + super.quelEstTonNom() + " the Indien says]: " + message);
+    }
+
+    @Override
+    public void sePresenter() {
+        System.out.println("I am " + super.quelEstTonNom() + ", an Indien with " + nbPlumes + " feathers and the totem " + totem + ".");
+    }
+}
